@@ -1,0 +1,36 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 10
+    },
+    "api/[...path].js": {
+      "maxDuration": 10
+    },
+    "api/health.js": {
+      "maxDuration": 10
+    },
+    "api/ready.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/ready",
+      "destination": "/api/ready"
+    },
+    {
+      "source": "/api",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/[...path]"
+    }
+  ]
+}

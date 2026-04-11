@@ -1,0 +1,55 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "builds": [
+    {
+      "src": "Frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    },
+    {
+      "src": "Backend/api/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "Backend/api/[...path].js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "Backend/api/health.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "Backend/api/ready.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "/Backend/api/health.js"
+    },
+    {
+      "src": "/ready",
+      "dest": "/Backend/api/ready.js"
+    },
+    {
+      "src": "/api(?:/(.*))?",
+      "dest": "/Backend/api/[...path].js"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/Frontend/dist/$1"
+    }
+  ],
+  "functions": {
+    "Backend/api/**/*.js": {
+      "maxDuration": 10
+    }
+  }
+}
