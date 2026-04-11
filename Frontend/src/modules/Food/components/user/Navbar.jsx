@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { MapPin, ShoppingCart, Trophy } from "lucide-react"
+import { Navigation, ShoppingCart, Trophy } from "lucide-react"
 import { Button } from "@food/components/ui/button"
 import { Avatar, AvatarFallback } from "@food/components/ui/avatar"
 import {
@@ -15,6 +15,7 @@ import { useLocationSelector } from "./UserLayout"
 import { getCachedSettings, loadBusinessSettings } from "@food/utils/businessSettings"
 import quickSpicyLogo from "@food/assets/quicky-spicy-logo.png"
 import BRAND_THEME from "@/config/brandTheme"
+import { useSplash } from "@/context/SplashContext"
 const debugLog = (...args) => {}
 const debugWarn = (...args) => {}
 const debugError = (...args) => {}
@@ -24,9 +25,19 @@ export default function Navbar() {
   const { location, loading } = useLocation()
   const { getCartCount } = useCart()
   const { openLocationSelector } = useLocationSelector()
+  const { pinLaunched } = useSplash()
   const cartCount = getCartCount()
   const [logoUrl, setLogoUrl] = useState(null)
   const [companyName, setCompanyName] = useState(null)
+  const [pinAnimated, setPinAnimated] = useState(false)
+
+  // Jab splash ka pin launch ho, ek baar bounce animation chalao
+  useEffect(() => {
+    if (!pinLaunched) return
+    // Thoda delay taaki splash fade ho sake
+    const t = setTimeout(() => setPinAnimated(true), 80)
+    return () => clearTimeout(t)
+  }, [pinLaunched])
 
   // Load business settings logo
   useEffect(() => {
@@ -108,7 +119,14 @@ export default function Navbar() {
               ) : (
                 <div className="flex flex-col items-start w-full min-w-0">
                   <span className="text-xs sm:text-sm flex flex-row items-center gap-1 font-semibold text-left text-foreground truncate w-full">
-                    <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-black flex-shrink-0" />
+                    <Navigation
+                      className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0"
+                      fill={BRAND_THEME.colors.brand.primary}
+                      stroke={BRAND_THEME.colors.brand.primary}
+                      style={pinAnimated ? {
+                        animation: 'navPinCurveDrop 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards',
+                      } : { color: BRAND_THEME.colors.brand.primary }}
+                    />
                     {cityName}
                   </span>
                   {location?.state && (
