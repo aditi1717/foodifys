@@ -8,9 +8,9 @@ import { authAPI } from "@food/api"
 import loginBanner from "@food/assets/loginbanner.png"
 import { getCachedSettings, loadBusinessSettings } from "@food/utils/businessSettings"
 import BRAND_THEME from "@/config/brandTheme"
-const debugLog = (...args) => {}
-const debugWarn = (...args) => {}
-const debugError = (...args) => {}
+const debugLog = (...args) => { }
+const debugWarn = (...args) => { }
+const debugError = (...args) => { }
 
 
 export default function SignIn() {
@@ -158,32 +158,28 @@ export default function SignIn() {
       </div>
 
       <div className="w-full max-w-[450px] bg-white dark:bg-[#1a1a1a] rounded-xl shadow-2xl relative z-10 overflow-hidden border border-gray-100 dark:border-gray-800">
-        {/* Banner (Mobile Only) */}
-        <div className="md:hidden w-full h-[180px] relative">
-          <img src={loginBanner} alt="Food Banner" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#1a1a1a] via-white/10 to-transparent" />
-          <div className="absolute inset-x-0 top-6 flex flex-col items-center justify-center px-6 text-center">
+        {/* Banner (Visible on all screens) */}
+        <div className="w-full h-[220px] md:h-[240px] relative border-b border-gray-100 dark:border-gray-800 bg-gray-50 flex items-center justify-center">
+          <img src={loginBanner} alt="Food Banner" className="w-full h-full object-cover opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#1a1a1a] via-white/40 to-transparent" />
+
+          {/* Logo container - centered and elevated */}
+          <div className="absolute inset-0 flex items-center justify-center">
             <div
-              className="flex h-20 w-20 items-center justify-center rounded-3xl border border-white/30 bg-white/90 shadow-lg backdrop-blur-md overflow-hidden"
+              className="flex h-42 w-42 md:h-36 md:w-36 items-center justify-center rounded-[2.5rem] border-8 border-white dark:border-[#1a1a1a] bg-white shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105"
             >
               {logoUrl ? (
                 <img
                   src={logoUrl}
                   alt={companyName}
-                  className="h-full w-full object-contain p-2"
+                  className="h-full w-full object-contain p-4"
                 />
               ) : (
-                <span className="text-3xl font-black" style={{ color: BRAND_THEME.colors.brand.primary }}>
+                <span className="text-5xl font-black" style={{ color: BRAND_THEME.colors.brand.primary }}>
                   {BRAND_THEME.brandName.charAt(0)}
                 </span>
               )}
             </div>
-            <p className="mt-3 text-2xl font-black tracking-tight text-white drop-shadow-sm">
-              {companyName || BRAND_THEME.brandName}
-            </p>
-            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/90">
-              Fast delivery, better cravings
-            </p>
           </div>
         </div>
 

@@ -200,22 +200,20 @@ export default function UnifiedOTPFastLogin() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex flex-col relative font-sans overflow-hidden">
-      <div className="relative z-10 flex-col pt-10 text-center px-4">
+      <div className="relative z-10 flex-col pt-4 text-center px-4">
          <div className="flex flex-col items-center justify-center">
-            <div className="w-20 h-20 flex items-center justify-center mb-1">
+            {/* Logo Container - Large and tight to content */}
+            <div className="w-44 h-44 md:w-52 md:h-52 flex items-center justify-center mb-0 transition-transform duration-500 hover:scale-105">
               {logoUrl ? (
-                 <img src={logoUrl} alt={companyName} className="max-h-full max-w-full object-contain" />
+                 <img src={logoUrl} alt={companyName} className="max-h-full max-w-full object-contain p-2 filter drop-shadow-lg" />
               ) : (
-                 <span className="text-3xl font-black text-slate-900 dark:text-white">{BRAND_THEME.brandName.charAt(0)}</span>
+                 <span className="text-6xl font-black text-slate-900 dark:text-white">{BRAND_THEME.brandName.charAt(0)}</span>
               )}
             </div>
-            <p className="text-[10px] font-medium text-slate-700 dark:text-slate-300 tracking-[0.12em] uppercase mt-1">
-              Fast delivery, better cravings
-            </p>
          </div>
       </div>
 
-      <div className="w-full max-w-[360px] mx-auto px-4 mt-4 mb-5 relative z-20 flex flex-col">
+      <div className="w-full max-w-[360px] mx-auto px-4 -mt-8 mb-5 relative z-20 flex flex-col">
         <div className="bg-white dark:bg-[#1a1a1a] rounded-[1.25rem] p-5 sm:p-6 shadow-none border border-slate-200 dark:border-gray-800">
            <div className="text-center mb-6 space-y-2 flex-col flex items-center">
               <div
